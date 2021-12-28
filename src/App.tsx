@@ -1,13 +1,14 @@
 import React from 'react'
-import './App.scss'
+import { Routes, Route } from 'react-router-dom'
+import Search from './screens/search'
+import Tree from './screens/tree'
 
 function App() {
     return (
-        <div className="App">
-            <header className="App-header">
-                <p>ArtisTree</p>
-            </header>
-        </div>
+        <Routes>
+            <Route path="/" element={<Search />} />
+            <Route path="/:artistId" element={<Tree />} />
+        </Routes>
     )
 }
 
