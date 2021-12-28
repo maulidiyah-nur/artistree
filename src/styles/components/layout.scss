@@ -1,0 +1,12 @@
+@use '../config' as config;
+
+.layout {
+    max-width: 90%;
+    height: 100%;
+    min-height: 100vh;
+    margin: calc(2 * config.$whitespace) auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

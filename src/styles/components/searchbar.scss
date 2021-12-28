@@ -1,0 +1,38 @@
+@use '../config' as config;
+@use './card.scss' as card;
+
+.searchbar {
+    margin: calc(5 * config.$whitespace) 0;
+    display: flex;
+    align-items: center;
+    background: config.$white;
+    width: calc(100% - calc(2 * config.$whitespace));
+    padding: config.$whitespace;
+    border-radius: config.$radius;
+
+    &__icon {
+        img {
+            width: calc(2 * config.$whitespace);
+            height: calc(2 * config.$whitespace);
+            margin-right: config.$whitespace;
+        }
+    }
+
+    &__input {
+        display: flex;
+        flex: 1;
+        input {
+            border: none;
+            outline: none;
+            background: none;
+            width: 100%;
+            height: calc(2 * config.$whitespace);
+            font-size: inherit;
+            word-spacing: 1px;
+        }
+    }
+
+    @media only screen and (min-width: 768px) {
+        width: calc(calc(3 * card.$size) + calc(2 * config.$whitespace));
+    }
+}

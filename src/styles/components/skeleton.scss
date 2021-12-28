@@ -1,0 +1,41 @@
+@use '../config.scss' as config;
+@use './card.scss' as card;
+
+@keyframes loading {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(200%);
+    }
+}
+
+.skeleton {
+    background: config.$silver;
+    width: calc(90vw - calc(2 * config.$whitespace));
+    height: calc(90vw - calc(2 * config.$whitespace));
+    margin: calc(config.$whitespace / 2);
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            opacify(config.$background, 0.9),
+            transparent
+        );
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        animation: loading 2s infinite;
+    }
+
+    @media only screen and (min-width: 768px) {
+        width: card.$size;
+        height: card.$size;
+    }
+}

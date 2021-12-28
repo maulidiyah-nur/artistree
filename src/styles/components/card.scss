@@ -1,0 +1,78 @@
+@use '../config.scss' as config;
+
+/*
+ * SIZING
+ */
+$size: 200px;
+
+.card {
+    background: config.$silver;
+    width: calc(90vw - calc(2 * config.$whitespace));
+    height: calc(90vw - calc(2 * config.$whitespace));
+    margin: calc(config.$whitespace / 2);
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        -webkit-filter: grayscale(100%);
+        -moz-filter: grayscale(100%);
+        -o-filter: grayscale(100%);
+        -ms-filter: grayscale(100%);
+        filter: grayscale(100%);
+        transition: transform 1s;
+    }
+
+    &__metadata {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        padding: config.$whitespace;
+        background-image: linear-gradient(transparent, config.$silver);
+        display: flex;
+        flex-direction: column;
+
+        &-name {
+            font-weight: bold;
+            text-align: center;
+            font-size: smaller;
+            margin-top: calc(config.$whitespace / 2);
+        }
+
+        &-analytic {
+            display: flex;
+            &-item {
+                display: flex;
+                flex: 1;
+                font-size: smaller;
+                flex-direction: column;
+                justify-content: center;
+                text-align: center;
+                span {
+                    font-size: smaller;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+
+    &:hover {
+        img {
+            -webkit-filter: grayscale(0%);
+            -moz-filter: grayscale(0%);
+            -o-filter: grayscale(0%);
+            -ms-filter: grayscale(0%);
+            filter: grayscale(0%);
+            transform: scale(1.5);
+        }
+    }
+
+    @media only screen and (min-width: 768px) {
+        width: $size;
+        height: $size;
+    }
+}

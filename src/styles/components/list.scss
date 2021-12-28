@@ -1,0 +1,29 @@
+@use '../config' as config;
+@use './card.scss' as card;
+
+.list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: calc(100% - calc(2 * config.$whitespace));
+    margin: calc(config.$whitespace / -2);
+
+    &__skeleton,
+    &__data,
+    &__not-found {
+        display: flex;
+        flex-wrap: wrap;
+
+        > * {
+            flex-shrink: 0;
+        }
+    }
+
+    &__not-found {
+        margin: config.$whitespace 0;
+    }
+
+    @media only screen and (min-width: 768px) {
+        width: calc(calc(3 * card.$size) + calc(3 * config.$whitespace));
+    }
+}
