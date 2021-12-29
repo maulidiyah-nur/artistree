@@ -72,7 +72,12 @@ const AuthReducer = createSlice({
                         STORAGE.TOKEN,
                         access_token + ':' + expiration,
                     )
-                    localStorage.setItem(STORAGE.REFRESH_TOKEN, refresh_token)
+                    if (refresh_token) {
+                        localStorage.setItem(
+                            STORAGE.REFRESH_TOKEN,
+                            refresh_token,
+                        )
+                    }
                     return {
                         ...state,
                         is_loading: false,

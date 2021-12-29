@@ -22,6 +22,14 @@
         align-items: center;
         position: relative;
 
+        &.with-children {
+            > * {
+                &:first-child::after {
+                    height: calc(7.5 * config.$whitespace);
+                }
+            }
+        }
+
         > * {
             margin-bottom: calc(2.5 * config.$whitespace);
             position: relative;
@@ -43,6 +51,8 @@
             display: flex;
             width: 100%;
             padding-top: calc(2.5 * config.$whitespace);
+            margin-top: calc(5 * config.$whitespace);
+            z-index: 1;
 
             > * {
                 position: relative;

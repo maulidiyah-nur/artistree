@@ -34,18 +34,10 @@ instance.interceptors.request.use(
                         STORAGE.REFRESH_TOKEN,
                     )
                     if (refresh_token) {
-                        console.log(
-                            'should trigger refresh token',
-                            store.getState(),
-                        )
                         await store.dispatch(
                             RefreshAccessToken(
                                 refresh_token,
                             ) as unknown as AnyAction,
-                        )
-                        console.log(
-                            'after trigger refresh token',
-                            store.getState(),
                         )
                     } else {
                         localStorage.removeItem(STORAGE.TOKEN)

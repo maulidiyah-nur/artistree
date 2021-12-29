@@ -27,7 +27,6 @@ const TreeScreen = (props: ITreeScreenProps) => {
     }, [artistId])
 
     const onPathChange = (path: Array<string>) => {
-        console.log(path)
         GetRelatives(path)
     }
 

@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 import IArtist from '../../interfaces/artist'
 import IArtistReducer from '../../interfaces/reducer/artist'
-import Tree from '../../interfaces/tree'
+import Tree, { updateNodeInTree } from '../../interfaces/tree'
 import ArtistDataService from '../../services/artist'
 
 export const Search = createAsyncThunk(
@@ -21,8 +21,8 @@ export const Get = createAsyncThunk('artist/get', async (id: string) => {
 export const GetRelatives = createAsyncThunk(
     'artist/get-relativess',
     async (path: Array<string>) => {
-        const res = await ArtistDataService.getRelatives(path[0])
-        return res.data
+        const res = await ArtistDataService.getRelatives(path[path.length - 1])
+        return { data: res.data.artists, path }
     },
 )
 
@@ -108,14 +108,22 @@ const ArtistReducer = createSlice({
                 }
             })
             .addCase(GetRelatives.fulfilled, (state, action) => {
+                const {
+                    data,
+                    path,
+                }: { data: Array<IArtist>; path: Array<string> } =
+                    action.payload
+                const tree = updateNodeInTree(
+                    { ...(state.tree ?? {}) } as Tree<IArtist>,
+                    path,
+                    data,
+                )
+
                 return {
                     ...state,
                     is_loading: false,
                     is_error: false,
-                    tree: {
-                        ...state.tree,
-                        children: action.payload.artists,
-                    } as Tree<IArtist>,
+                    tree,
                 }
             })
     },
