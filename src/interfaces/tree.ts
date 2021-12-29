@@ -9,9 +9,11 @@ const updateSinglePath = <T>(
     tree: Tree<T>,
     id: string,
     nodes: Array<Tree<T>>,
+    level: number,
 ) => {
     const result = tree
-    if (result.id === id) {
+    console.log(result.path?.length, level)
+    if (result.id === id && result.path?.length === level + 1) {
         if (!result.children) {
             result.children = nodes.map(n => {
                 const { id } = n as unknown as { id: string }
@@ -20,7 +22,12 @@ const updateSinglePath = <T>(
         }
     } else {
         result.children = result.children?.map(c => {
-            const children = updateSinglePath({ ...c } as Tree<T>, id, nodes)
+            const children = updateSinglePath(
+                { ...c } as Tree<T>,
+                id,
+                nodes,
+                level,
+            )
             return children
         })
     }
@@ -33,8 +40,8 @@ export const updateNodeInTree = <T>(
     nodes: Array<Tree<T>>,
 ) => {
     let res = tree
-    paths.forEach(p => {
-        res = updateSinglePath(res, p, nodes)
+    paths.forEach((p, i) => {
+        res = updateSinglePath(res, p, nodes, i)
     })
     return res
 }
