@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { Link } from 'react-router-dom'
+
 import IArtist from '../../interfaces/artist'
 import Card from '../card'
 import Skeleton from '../skeleton'
@@ -21,7 +23,11 @@ const List = (props: IListProps<IArtist>) => {
                 <>
                     <div className="list__data">
                         {data.map(d => {
-                            return <Card key={d.id} data={d} />
+                            return (
+                                <Link key={d.id} to={`/${d.id}`}>
+                                    <Card data={d} />
+                                </Link>
+                            )
                         })}
                     </div>
                     <span className="list__not-found">

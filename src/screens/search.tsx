@@ -16,30 +16,6 @@ interface ISearchScreenProps {
 }
 const SearchScreen = (props: ISearchScreenProps) => {
     const { artist, SearchAction } = props
-    // const [isLoading, setIsLoading] = useState<boolean>(false)
-    // const [list, setList] = useState<Array<IArtist>>([])
-
-    // const data = {
-    //     followers: {
-    //         total: 8351044,
-    //     },
-    //     id: '0jnsk9HBra6NMjO2oANoPY',
-    //     images: [
-    //         {
-    //             url: 'https://i.scdn.co/image/ab6761610000e5eb9e3acf1eaf3b8846e836f441',
-    //         },
-    //     ],
-    //     name: 'Taylor Swift',
-    //     popularity: 82,
-    // } as IArtist
-
-    // useEffect(() => {
-    //     setIsLoading(true)
-    //     setTimeout(() => {
-    //         setIsLoading(false)
-    //         setList([data, data, data, data, data, data])
-    //     }, 5000)
-    // }, [])
 
     const onSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         SearchAction(e.target.value)
