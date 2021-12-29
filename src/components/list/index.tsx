@@ -1,4 +1,5 @@
 import React from 'react'
+
 import IArtist from '../../interfaces/artist'
 import Card from '../card'
 import Skeleton from '../skeleton'

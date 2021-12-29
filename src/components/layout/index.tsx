@@ -1,4 +1,5 @@
 import React from 'react'
+
 import ILayoutProps from './type'
 
 const Layout = (props: ILayoutProps) => {
