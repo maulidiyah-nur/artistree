@@ -54,6 +54,14 @@ const ArtistReducer = createSlice({
                     error_message: action.error.message,
                 }
             })
+            .addCase(Search.fulfilled, (state, action) => {
+                return {
+                    ...state,
+                    is_loading: false,
+                    is_error: false,
+                    list: action.payload.artists.items,
+                }
+            })
     },
 })
 

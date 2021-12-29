@@ -14,7 +14,9 @@ class AuthDataService {
             )}`,
             'content-type': 'application/x-www-form-urlencoded',
         },
+        requireToken: false,
     }
+
     token(code: string) {
         const body = {
             code,

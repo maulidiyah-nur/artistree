@@ -47,9 +47,10 @@ const AuthReducer = createSlice({
             })
             .addCase(GetAccessToken.fulfilled, (state, action) => {
                 const { access_token, expires_in } = action.payload
+                const now = new Date().getTime() / 1000
                 const expiration =
-                    Number(new Date().getTime() / 1000).toFixed(0) +
-                    Number(expires_in)
+                    parseInt(now.toString(), 10) +
+                    parseInt(expires_in.toString(), 10)
                 localStorage.setItem(
                     STORAGE.TOKEN,
                     access_token + ':' + expiration,

@@ -7,7 +7,7 @@ const Card = (props: ICardProps<IArtist>) => {
     const { data } = props
     return (
         <div className="card">
-            <img src={data.images[0].url} />
+            <img src={data.images[0]?.url} />
             <div className="card__metadata">
                 <div className="card__metadata-analytic">
                     <div className="card__metadata-analytic-item">
