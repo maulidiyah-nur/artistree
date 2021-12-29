@@ -1,8 +1,14 @@
 import Base from './base'
 
 class ArtistDataService {
+    controller?: AbortController
     search(keyword: string) {
-        return Base.get(`search?q=${keyword}&type=artist`)
+        if (this.controller) {
+            this.controller.abort()
+        }
+        this.controller = new AbortController()
+        const signal = this.controller.signal
+        return Base.get(`search?q=${keyword}&type=artist`, { signal })
     }
 
     get(id: string) {
