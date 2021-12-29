@@ -1,6 +1,5 @@
 type Tree<T> = T & {
     id: string
-    name: string
     path?: Array<string>
     children?: Array<Tree<T>>
 }
@@ -20,6 +19,8 @@ const updateSinglePath = <T>(
                 return { ...n, path: [...(tree.path ?? []), id] }
             })
         }
+    } else if (result.id !== id && result.path?.length === level + 1) {
+        result.children = undefined
     } else {
         result.children = result.children?.map(c => {
             const children = updateSinglePath(
