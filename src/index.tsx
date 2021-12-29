@@ -7,6 +7,8 @@ import { BrowserRouter } from 'react-router-dom'
 import App from './App'
 import store from './redux/store'
 import reportWebVitals from './reportWebVitals'
+import { injectStore } from './services/base'
+injectStore(store)
 
 ReactDOM.render(
     <React.StrictMode>

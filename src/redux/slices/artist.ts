@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
+import IArtist from '../../interfaces/artist'
 import IArtistReducer from '../../interfaces/reducer/artist'
+import Tree from '../../interfaces/tree'
 import ArtistDataService from '../../services/artist'
 
 export const Search = createAsyncThunk(
@@ -16,10 +18,10 @@ export const Get = createAsyncThunk('artist/get', async (id: string) => {
     return res.data
 })
 
-export const GetRalatives = createAsyncThunk(
+export const GetRelatives = createAsyncThunk(
     'artist/get-relativess',
-    async (id: string) => {
-        const res = await ArtistDataService.getRelatives(id)
+    async (path: Array<string>) => {
+        const res = await ArtistDataService.getRelatives(path[0])
         return res.data
     },
 )
@@ -60,6 +62,60 @@ const ArtistReducer = createSlice({
                     is_loading: false,
                     is_error: false,
                     list: action.payload.artists.items,
+                }
+            })
+            .addCase(Get.pending, state => {
+                return {
+                    ...state,
+                    is_loading: true,
+                    is_error: false,
+                    data: undefined,
+                }
+            })
+            .addCase(Get.rejected, (state, action) => {
+                return {
+                    ...state,
+                    is_loading: false,
+                    is_error: true,
+                    error_message: action.error.message,
+                }
+            })
+            .addCase(Get.fulfilled, (state, action) => {
+                return {
+                    ...state,
+                    is_loading: false,
+                    is_error: false,
+                    data: action.payload,
+                    tree: {
+                        ...action.payload,
+                        path: [action.payload.id],
+                    } as Tree<IArtist>,
+                }
+            })
+            .addCase(GetRelatives.pending, state => {
+                return {
+                    ...state,
+                    is_loading: true,
+                    is_error: false,
+                }
+            })
+            .addCase(GetRelatives.rejected, (state, action) => {
+                return {
+                    ...state,
+                    is_loading: false,
+                    is_error: true,
+                    error_message: action.error.message,
+                }
+            })
+            .addCase(GetRelatives.fulfilled, (state, action) => {
+                return {
+                    ...state,
+                    is_loading: false,
+                    is_error: false,
+                    tree: {
+                        ...state.tree,
+                        children: action.payload.artists,
+                    } as Tree<IArtist>,
                 }
             })
     },

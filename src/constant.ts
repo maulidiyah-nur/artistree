@@ -1,5 +1,6 @@
 export const STORAGE = {
     TOKEN: '__at_tkn__',
+    REFRESH_TOKEN: '__at_rfrsh_tkn__',
 }
 
 export const CLIENT = {

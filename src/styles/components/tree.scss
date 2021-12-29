@@ -1,0 +1,88 @@
+@use '../config.scss' as config;
+@use './card.scss' as card;
+
+.tree {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: config.$whitespace;
+    overflow: scroll;
+
+    &.initial {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__node {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+
+        > * {
+            margin-bottom: calc(2.5 * config.$whitespace);
+            position: relative;
+            overflow: unset;
+
+            &:first-child:after {
+                content: '';
+                position: absolute;
+                top: 100%;
+                bottom: calc(2.5 * config.$whitespace);
+                left: calc(card.$size / 2);
+                width: 1px;
+                height: calc(2.5 * config.$whitespace);
+                background-color: config.$primary;
+            }
+        }
+
+        &-children {
+            display: flex;
+            width: 100%;
+            padding-top: calc(2.5 * config.$whitespace);
+
+            > * {
+                position: relative;
+                overflow: unset;
+
+                &::before {
+                    content: '';
+                    position: absolute;
+                    height: calc(card.$size / 2);
+                    top: calc(-2.5 * config.$whitespace);
+                    left: calc(card.$size / 2);
+                    right: calc(calc(card.$size / -2) - config.$whitespace);
+                    border-top: solid 1px config.$primary;
+                    border-left: solid 1px config.$primary;
+                }
+
+                &:first-child::before {
+                    border-top-left-radius: calc(config.$whitespace / 2);
+                }
+
+                &:last-child::before {
+                    border-left: none;
+                    border-right: solid 1px config.$primary;
+                    border-top-right-radius: calc(config.$whitespace / 2);
+                    right: calc(
+                        calc(card.$size / 2) - calc(config.$whitespace / 2)
+                    );
+                    left: calc(calc(card.$size / -2) - config.$whitespace);
+                }
+            }
+        }
+
+        &-button {
+            border: solid 1px config.$primary;
+            padding: config.$whitespace;
+            cursor: pointer;
+
+            &.disabled {
+                cursor: unset;
+            }
+        }
+    }
+}

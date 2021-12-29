@@ -1,7 +1,13 @@
+import { AnyAction, EnhancedStore } from '@reduxjs/toolkit'
 import axios, { AxiosRequestConfig } from 'axios'
 
 import { STORAGE } from '../constant'
+import { RefreshAccessToken } from '../redux/slices/auth'
 
+let store: EnhancedStore
+export const injectStore = (_store: EnhancedStore) => {
+    store = _store
+}
 interface IExtendedAxiosRequestConfig extends AxiosRequestConfig {
     requireToken: boolean
 }
@@ -15,7 +21,7 @@ const instance = axios.create({
 } as AxiosRequestConfig)
 
 instance.interceptors.request.use(
-    config => {
+    async config => {
         const extendedConfig = config as IExtendedAxiosRequestConfig
         if (extendedConfig.requireToken) {
             const tokenStorage = localStorage.getItem(STORAGE.TOKEN)
@@ -24,6 +30,29 @@ instance.interceptors.request.use(
                 const [token, expires] = tokenStorage.split(':')
                 const now = Number(new Date().getTime() / 1000).toFixed(0)
                 if (Number(expires) < Number(now)) {
+                    const refresh_token = localStorage.getItem(
+                        STORAGE.REFRESH_TOKEN,
+                    )
+                    if (refresh_token) {
+                        console.log(
+                            'should trigger refresh token',
+                            store.getState(),
+                        )
+                        await store.dispatch(
+                            RefreshAccessToken(
+                                refresh_token,
+                            ) as unknown as AnyAction,
+                        )
+                        console.log(
+                            'after trigger refresh token',
+                            store.getState(),
+                        )
+                    } else {
+                        localStorage.removeItem(STORAGE.TOKEN)
+                        localStorage.removeItem(STORAGE.REFRESH_TOKEN)
+                        window.location.href = '/'
+                    }
+
                     throw Error('token expired')
                 } else {
                     config.headers = {

@@ -31,7 +31,7 @@ class AuthDataService {
             refresh_token,
             grant_type: 'refresh_token',
         }
-        return Base.post(`refresh_token`, body, this.baseConfig)
+        return Base.post(`token`, qs.stringify(body), this.baseConfig)
     }
 }
 

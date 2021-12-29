@@ -1,5 +1,6 @@
 type Tree<T> = T & {
-    children: Array<T>
+    path?: Array<string>
+    children?: Array<T>
 }
 
 export default Tree
