@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { Link } from 'react-router-dom'
+
 import Logo from '../../assets/images/logo.png'
 import IArtist from '../../interfaces/artist'
 import Card from '../card'
@@ -54,7 +56,9 @@ const TreeComponent = (props: ITreeProps<IArtist>) => {
                     : ''
             }`}
         >
-            <img src={Logo} width={200} />
+            <Link to="/">
+                <img src={Logo} width={200} />
+            </Link>
             <TreeNode {...props} />
         </div>
     )

@@ -11,12 +11,17 @@
     overflow: scroll;
     display: flex;
     flex-direction: column;
-    align-items: center;
 
     &.initial {
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+
+    > a {
+        position: fixed;
+        top: config.$whitespace;
+        left: config.$whitespace;
     }
 
     &__node {
