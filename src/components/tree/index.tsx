@@ -6,10 +6,12 @@ import ITreeProps from './type'
 
 const TreeNode = (props: ITreeProps<IArtist>) => {
     const { data, is_loading, onPathChange } = props
+    const minWidth = 216
+    const width = (data.children?.length ?? 0) * minWidth
     return (
         <div
             className={`tree__node ${data.children ? 'with-children' : ''}`}
-            style={{ width: (data.children?.length ?? 0) * 216, minWidth: 216 }}
+            style={{ width, minWidth }}
         >
             <Card data={data} />
             {data.children && (

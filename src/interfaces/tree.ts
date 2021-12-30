@@ -11,7 +11,6 @@ const updateSinglePath = <T>(
     level: number,
 ) => {
     const result = tree
-    console.log(result.path?.length, level)
     if (result.id === id && result.path?.length === level + 1) {
         if (!result.children) {
             result.children = nodes.map(n => {
