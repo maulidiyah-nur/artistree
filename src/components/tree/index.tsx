@@ -1,5 +1,6 @@
 import React from 'react'
 
+import Logo from '../../assets/images/logo.png'
 import IArtist from '../../interfaces/artist'
 import Card from '../card'
 import ITreeProps from './type'
@@ -53,6 +54,7 @@ const TreeComponent = (props: ITreeProps<IArtist>) => {
                     : ''
             }`}
         >
+            <img src={Logo} width={200} />
             <TreeNode {...props} />
         </div>
     )
